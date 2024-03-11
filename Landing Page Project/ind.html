@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:aqua;
+        }
+        #taskInput {
+            width: 70%;
+            margin-bottom: 10px;
+        }
+        #addButton {
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .deleteButton {
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .deleteButton:hover {
+            background-color: #d43f00;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <input type="text" id="taskInput" placeholder="Enter task...">
+    <button id="addButton">Add Task</button>
+    <ul id="taskList"></ul>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const taskInput = document.getElementById("taskInput");
+            const addButton = document.getElementById("addButton");
+            const taskList = document.getElementById("taskList");
+
+            addButton.addEventListener("click", function() {
+                const taskText = taskInput.value.trim();
+                if (taskText !== "") {
+                    addTask(taskText);
+                    taskInput.value = "";
+                }
+            });
+
+            taskList.addEventListener("click", function(event) {
+                if (event.target.classList.contains("deleteButton")) {
+                    const taskItem = event.target.parentElement;
+                    taskList.removeChild(taskItem);
+                }
+            });
+
+            function addTask(taskText) {
+                const li = document.createElement("li");
+                li.textContent = taskText;
+
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.className = "deleteButton";
+
+                li.appendChild(deleteButton);
+                taskList.appendChild(li);
+            }
+        });
+    </script>
+</body>
+</html>
